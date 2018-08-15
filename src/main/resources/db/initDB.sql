@@ -23,3 +23,14 @@ CREATE TABLE user_roles
   CONSTRAINT user_roles_idx UNIQUE (user_id, role),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
+
+DROP table if exists meals;
+create table meals(
+  id integer primary key default nextval('global_seq'),
+  dateTime TIMESTAMP default now() not null,
+  description VARCHAR,
+  calories integer not null,
+  userId integer not null,
+  constraint meals_user_idx unique (id, userId),
+  foreign key (userId) references users (id) on delete cascade
+);
